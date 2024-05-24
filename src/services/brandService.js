@@ -13,6 +13,12 @@ const getbrandid = async (idBrand) =>{
     return brand
 }
 
+//Get id Brand max
+const getidmax = async() => {
+    let [results, fields] = await connection.query( 'SELECT MAX(`idBrand`) as max FROM `rice_4_man`.`Brand`' )
+    return results[0].max
+}
+
 //Add Brand
 const addbrand = async (idBrand, nameBrand, slug, urlImageBrand, order, anHien) => {
     let [results, fields] = await connection.query('INSERT INTO `rice_4_man`.`Brand` (`idBrand`, `nameBrand`, `slug`, `urlImageBrand`, `order`, `anHien`) VALUES (?, ?, ?, ?, ?, ?);', [idBrand, nameBrand, slug, urlImageBrand, order, anHien])
@@ -28,5 +34,5 @@ const deletebrand = async(idBrand) =>{
 }
 
 module.exports = {
-    getbrands, getbrandid, addbrand, updatebrand, deletebrand
+    getbrands, getbrandid, getidmax, addbrand, updatebrand, deletebrand
 }

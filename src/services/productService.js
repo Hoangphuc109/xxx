@@ -1,3 +1,4 @@
+const { retry } = require('statuses')
 const connection = require('../config/database')
 const moment = require('moment-timezone')
 
@@ -27,6 +28,12 @@ const getproductnb = async () => {
     return results
 }
 
+//Get id Product max
+const getidmax = async() => {
+    let [results, fields] = await connection.query( 'SELECT MAX(`idProduct`) as max FROM `rice_4_man`.`product`' )
+    return results[0].max
+}
+
 //Add Product
 const addproduct = async (idProduct, nameProduct, slug, price, urlImage, describe, postingDate, views, purchases, anHien, noiBat, ProductType_idType, Brand_idBrand) => {
     postingDate = moment(postingDate).format(
@@ -36,6 +43,7 @@ const addproduct = async (idProduct, nameProduct, slug, price, urlImage, describ
         'INSERT INTO `rice_4_man`.`product` (`idProduct`, `nameProduct`, `slug`, `price`, `urlImage`, `describe`, `postingDate`, `views`, `purchases`, `anHien`, `noiBat`, `ProductType_idType`, `Brand_idBrand`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
         [idProduct, nameProduct, slug, price, urlImage, describe, postingDate, views, purchases, anHien, noiBat, ProductType_idType, Brand_idBrand],
     );
+    
 }
 
 //Delete Product
@@ -52,6 +60,6 @@ const updateproduct = async (idProduct, NamePro, slug, price, urlImage, describe
 }
 
 module.exports = {
-    getproduct, getproductid, getproducttype, getproductnb
+    getproduct, getproductid, getproducttype, getproductnb, getidmax
     , addproduct, deleteproduct, updateproduct
 }

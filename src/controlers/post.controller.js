@@ -1,6 +1,6 @@
 const { json } = require('express');
 
-const { getposts, getpostsId, addpost, updatepost, deletepost
+const { getposts, getpostsId, getidmax, addpost, updatepost, deletepost
 
 } = require('../services/postService')
 
@@ -21,7 +21,9 @@ const getPostId = async (req, res) => {
 //Add Post
 const addPost = async (req, res) => {
     try {
-        let { idPots, thumbNail, content, author, postingDate, anHien, noiBat, title, slug } = req.body;
+        const idMax = await getidmax()
+        let idPots = idMax + 1
+        let { thumbNail, content, author, postingDate, anHien, noiBat, title, slug } = req.body;
         await addpost(idPots, thumbNail, content, author, postingDate, anHien, noiBat, title, slug)
         return res.json('Add successful!')
     } catch (error) {
@@ -44,7 +46,7 @@ const deletePost = async (req, res) => {
 const updatePost = async (req, res) => {
     try {
         let { idPots, thumbNail, content, author, postingDate, anHien, noiBat, title, slug } = req.body;
-        await queryUpdatePost(idPots, thumbNail, content, author, postingDate, anHien, noiBat, title, slug);
+        await updatepost(idPots, thumbNail, content, author, postingDate, anHien, noiBat, title, slug);
         return res.json('Update successful!');
     } catch (error) {
         return res.status(500).json({ error: error.message })

@@ -1,6 +1,6 @@
 const { json } = require('express');
 
-const { getallusers, getuserid, adduser, updateuser, deleteuser
+const { getallusers, getuserid, getidmax, adduser, updateuser, deleteuser
 } = require('../services/userService')
 
 //Get user
@@ -20,7 +20,9 @@ const getUserId = async (req, res) => {
 //Add user
 const createUser = async (req, res) => {
     try {
-        let { id, name, email, phone, avatar, role, active, password, address, remember_token, } = req.body;
+        const idMax = await getidmax()
+        let id = idMax + 1
+        let { name, email, phone, avatar, role, active, password, address, remember_token, } = req.body;
         await adduser(id, name, email, phone, avatar, address, role, active, password, remember_token,)
         return res.json('Add user successful!')
     } catch (error) {

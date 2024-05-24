@@ -1,7 +1,8 @@
 const { json } = require('express');
 
 const { getproduct, getproductid, getproducttype, getproductnb
-    , addproduct, deleteproduct, updateproduct
+    , addproduct, deleteproduct, updateproduct,
+    getidmax
 
 } = require('../services/productService')
 
@@ -34,7 +35,9 @@ const getProductNB = async (req, res) => {
 //Add Product
 const addProduct = async (req, res) => {
     try {
-        let { idProduct, nameProduct, slug, price, urlImage, describe, postingDate, views, purchases, anHien, noiBat, ProductType_idType, Brand_idBrand } = req.body;
+        const idMax = await getidmax()
+        let idProduct = idMax + 1
+        let {  nameProduct, slug, price, urlImage, describe, postingDate, views, purchases, anHien, noiBat, ProductType_idType, Brand_idBrand } = req.body;
         await addproduct(idProduct, nameProduct, slug, price, urlImage, describe, postingDate, views, purchases, anHien, noiBat, ProductType_idType, Brand_idBrand)
         return res.json('Add Successful!')
     } catch (error) {

@@ -1,6 +1,6 @@
 const { json } = require('express')
 
-const { getbrands, getbrandid, addbrand, updatebrand, deletebrand
+const { getbrands, getbrandid, getidmax, addbrand, updatebrand, deletebrand
 
 } = require('../services/brandService')
 
@@ -21,7 +21,9 @@ const getBrandId = async (req, res) => {
 //Add Brand
 const addBrand = async (req, res) => {
     try {
-        let { idBrand, nameBrand, slug, urlImageBrand, order, anHien } = req.body
+        const idMax = await getidmax()
+        let idBrand = idMax + 1
+        let { nameBrand, slug, urlImageBrand, order, anHien } = req.body
         await addbrand(idBrand, nameBrand, slug, urlImageBrand, order, anHien)
         return res.json('Add Successful!')
     }

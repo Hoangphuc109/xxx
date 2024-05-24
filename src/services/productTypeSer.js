@@ -13,6 +13,12 @@ const gettypeid = async (idType) => {
     return type
 }
 
+//Get id Type max
+const getidmax = async() => {
+    let [results, fields] = await connection.query( 'SELECT MAX(`idType`) as max FROM `rice_4_man`.`producttype`' )
+    return results[0].max
+}
+
 //Add Product Type
 const addtype = async (idType, nameType, slug, order, anHien) => {
     let [results, fields] = await connection.query('INSERT INTO `rice_4_man`.`ProductType` (idType, nameType, slug, `order`, anHien) VALUES (?, ?, ?, ?, ?);', [idType, nameType, slug, order, anHien])
@@ -29,5 +35,5 @@ const deletetype = async (idType) => {
 }
 
 module.exports = {
-    gettype, gettypeid, addtype, updatetype, deletetype
+    gettype, gettypeid, getidmax, addtype, updatetype, deletetype
 }

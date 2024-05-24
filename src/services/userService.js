@@ -13,6 +13,12 @@ const getuserid = async (id) => {
     return user
 }
 
+//Get id User max
+const getidmax = async() => {
+    let [results, fields] = await connection.query( 'SELECT MAX(`id`) as max FROM `rice_4_man`.`users`' )
+    return results[0].max
+}
+
 //Add user
 const adduser = async (id, name, email, phone, avatar, address, role, active, password, remember_token,) => {
     let [results, fields] = await connection.query(
@@ -47,5 +53,5 @@ const updateuser = async (id, name, email, phone, avatar, address, role, active,
 
 
 module.exports = {
-   getallusers, getuserid, adduser, updateuser, deleteuser
+   getallusers, getuserid, getidmax,adduser, updateuser, deleteuser
 }

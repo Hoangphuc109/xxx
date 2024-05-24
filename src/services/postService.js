@@ -13,6 +13,12 @@ const getpostsId = async (id) => {
     return post
 }
 
+//Get id Post max
+const getidmax = async() => {
+    let [results, fields] = await connection.query( 'SELECT MAX(`idPots`) as max FROM `rice_4_man`.`posts`' )
+    return results[0].max
+}
+
 //Add Post
 const addpost = async (idPots, thumbNail, content, author, postingDate, anHien, noiBat, title, slug) => {
     let [results, fields] = await connection.query(
@@ -41,5 +47,5 @@ const updatepost = async (idPots, thumbNail, content, author, postingDate, anHie
 
 
 module.exports = {
-    getposts, getpostsId, addpost, deletepost, updatepost
+    getposts, getpostsId, getidmax, addpost, deletepost, updatepost
 }

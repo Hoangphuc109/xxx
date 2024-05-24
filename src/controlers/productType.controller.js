@@ -1,5 +1,5 @@
 const { json } = require('express')
-const { gettype, gettypeid, addtype, updatetype, deletetype } = require('../services/productTypeSer')
+const { gettype, gettypeid, getidmax, addtype, updatetype, deletetype } = require('../services/productTypeSer')
 
 
 //Get Product Type
@@ -26,7 +26,9 @@ const getTypeId = async( req, res) => {
 // Add Product Type
 const addType = async (req, res) => {
     try {
-        let { idType, nameType, slug, order, anHien } = req.body
+        const idMax = await getidmax()
+        let idType = idMax + 1
+        let { nameType, slug, order, anHien } = req.body
         await addtype(idType, nameType, slug, order, anHien)
         return res.json('Add Successfull!')
     } catch (error) {
