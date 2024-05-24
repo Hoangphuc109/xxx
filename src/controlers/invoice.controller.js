@@ -3,8 +3,12 @@ const { getinvoice, getinvoiceid, updateinvoice } = require('../services/invoice
 
 //Get Invoice 
 const getInvoice = async (req, res) => {
-    let invoice = await getinvoice()
-    return res.json({ Invoice: invoice })
+    let results = await getinvoice()
+    results = results.map(invoice => {
+        invoice.purchaseDate = invoice.purchaseDate.toISOString().split('T')[0];
+        return invoice;
+    });
+    return res.json({ Invoice: results })
 }
 
 //Get Invoice by Id

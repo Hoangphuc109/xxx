@@ -8,6 +8,6 @@ const getcontact = async () => {
 
 
 module.exports = {
-    getcontact, 
-    
+    getcontact,
+
 }

@@ -6,8 +6,13 @@ const { getcontact
 
 //Get all Brand
 const getContact = async (req, res) => {
-    let brand = await getcontact()
-    return res.json({ Brands: brand })
+    let results = await getcontact()
+    results = results.map(contact => {
+        contact.created_at = contact.created_at.toISOString().split('T')[0];
+        contact.updated_at = contact.updated_at.toISOString().split('T')[0];
+        return contact;
+    });
+    return res.json({ Contact: results })
 }
 
 module.exports = {

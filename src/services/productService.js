@@ -52,12 +52,13 @@ const deleteproduct = async (idProduct) => {
 }
 
 //Update Product 
-const updateproduct = async (idProduct, NamePro, slug, price, urlImage, describe, postDate, views, purchase, anHien, noibat, idType2, idBrand2) => {
+const updateproduct = async (idProduct, NamePro, slug, price, urlImage, describe, postDate,
+    views, purchase, anHien, noibat, idType2, idBrand2) => {
 
     let query = 'UPDATE `rice_4_man`.`product` SET `nameProduct` = ?,`slug` = ?,`price` = ?, `describe` = ?, `postingDate` = ?,`views` = ?,`purchases` = ?,`anHien` = ?,`noiBat` = ?,`ProductType_idType` = ?,`Brand_idBrand` = ? WHERE `idProduct` = ?;';
     let params = [NamePro, slug, price, describe, postDate, views, purchase, anHien, noibat, idType2, idBrand2, idProduct];
 
-    if (avatar) {
+    if (urlImage) {
         query = 'UPDATE `rice_4_man`.`product` SET `nameProduct` = ?,`slug` = ?,`price` = ?, `urlImage` = ?, `describe` = ?, `postingDate` = ?,`views` = ?,`purchases` = ?,`anHien` = ?,`noiBat` = ?,`ProductType_idType` = ?,`Brand_idBrand` = ? WHERE `idProduct` = ?;';
         params = [NamePro, slug, price, urlImage, describe, postDate, views, purchase, anHien, noibat, idType2, idBrand2, idProduct];
     }

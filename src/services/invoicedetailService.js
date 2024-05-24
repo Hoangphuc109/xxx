@@ -1,7 +1,8 @@
 const connection = require('../config/database');
 const getInvoiceDetails = async () => {
     let [results, fields] = await connection.query('SELECT * FROM `rice_4_man`.`InvoiceDetails`;');
-    return results;
+    let InvoiceDetails = results && results.length > 0 ? results[0] : {}
+    return InvoiceDetails;
 };
 
 const addInvoiceDetail = async (idInvoiceDetails, idInvoice, idProduct, nameProduct, quanity, price, urlImage, Invoice_idInvoice, Product_idProduct) => {
@@ -14,7 +15,8 @@ const addInvoiceDetail = async (idInvoiceDetails, idInvoice, idProduct, nameProd
 
 const getInvoiceDetailid = async (id) => {
     let [results, fields] = await connection.query('SELECT * FROM `rice_4_man`.`InvoiceDetails` WHERE idInvoiceDetails = ?;', [id])
-    return results
+    let InvoiceDetails = results && results.length > 0 ? results[0] : {}
+    return InvoiceDetails;
 }
 
 const queryupdateInvoiceDetail = async (idInvoiceDetails, idInvoice, idProduct, nameProduct, quanity, price, urlImage, Invoice_idInvoice, Product_idProduct) => {

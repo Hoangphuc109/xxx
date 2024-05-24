@@ -6,8 +6,8 @@ const { getbrands, getbrandid, getidmax, addbrand, updatebrand, deletebrand
 
 //Get all Brand
 const getBrand = async (req, res) => {
-    let brand = await getbrands()
-    return res.json({ Brands: brand })
+    let results = await getbrands()
+    return res.json({ Brands: results })
 }
 
 //Get Brand by Id
@@ -28,7 +28,7 @@ const addBrand = async (req, res) => {
         return res.json('Add Successful!')
     }
     catch (error) {
-        return res.status(500).json({error: error.message})
+        return res.status(500).json({ error: error.message })
     }
 }
 
@@ -39,9 +39,9 @@ const updateBrand = async (req, res) => {
         await updatebrand(idBrand, nameBrand, slug, urlImageBrand, order, anHien)
         return res.json('Update Successful!')
     } catch (error) {
-        return res.status(500).json({error: error.message})
+        return res.status(500).json({ error: error.message })
     }
-    
+
 }
 
 //Delete Brand
@@ -51,7 +51,7 @@ const deleteBrand = async (req, res) => {
         await deletebrand(idbrand)
         return res.json('Delete Successful!')
     } catch (error) {
-        return res.status(500).json({error: error.message})
+        return res.status(500).json({ error: error.message })
     }
 }
 

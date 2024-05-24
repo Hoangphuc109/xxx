@@ -6,6 +6,12 @@ const { getallusers, getuserid, getidmax, adduser, updateuser, deleteuser
 //Get user
 const getUser = async (req, res) => {
     let results = await getallusers();
+    results = results.map(product => {
+        product.email_verified_at = product.updated_at.toISOString().split('T')[0];
+        product.created_at = product.created_at.toISOString().split('T')[0];
+        product.updated_at = product.updated_at.toISOString().split('T')[0];
+        return product;
+    });
     return res.json({ user: results })
 
 }
