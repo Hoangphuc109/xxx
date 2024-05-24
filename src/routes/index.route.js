@@ -2,11 +2,12 @@ const express = require('express');
 const productRoute = require('./product.route.js')
 const brandRoute = require('./brand.route.js')
 const typeRoute = require('./productType.route.js')
-const invoiceRoute = require ('./invoice.route.js')
+const invoiceRoute = require('./invoice.route.js')
 const userRoute = require('./user.route.js')
 const postRoute = require('./post.route.js')
 const conatctRoute = require('./contact.route.js')
 const imageRoute = require('./image.route.js')
+const invoiceDetails = require('./invoicedetail.route.js')
 
 const router = express.Router()
 
@@ -18,6 +19,8 @@ router.use('/brand', brandRoute)
 router.use('/type', typeRoute)
 //Invoice
 router.use('/invoice', invoiceRoute)
+//invoicedetail
+router.use('/invoicedetail', invoiceDetails)
 //Post
 router.use('/post', postRoute)
 //User

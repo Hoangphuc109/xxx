@@ -8,7 +8,12 @@ const { getposts, getpostsId, getidmax, addpost, updatepost, deletepost
 //Get all Post
 const getPost = async (req, res) => {
     let results = await getposts();
-    return res.json({ Posts: results })
+    // Format the postingDate to YYYY-MM-DD
+    results = results.map(post => {
+        post.postingDate = post.postingDate.toISOString().split('T')[0];
+        return post;
+    });
+    return res.json({ Posts: results });
 }
 
 //Get Post by Id

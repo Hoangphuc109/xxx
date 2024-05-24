@@ -7,15 +7,15 @@ const getbrands = async (req, res) => {
 }
 
 //Get Brand by Id
-const getbrandid = async (idBrand) =>{
+const getbrandid = async (idBrand) => {
     let [results, fields] = await connection.query('SELECT * FROM rice_4_man.brand WHERE idBrand = ?', [idBrand])
     let brand = results && results.length > 0 ? results[0] : {};
     return brand
 }
 
 //Get id Brand max
-const getidmax = async() => {
-    let [results, fields] = await connection.query( 'SELECT MAX(`idBrand`) as max FROM `rice_4_man`.`Brand`' )
+const getidmax = async () => {
+    let [results, fields] = await connection.query('SELECT MAX(`idBrand`) as max FROM `rice_4_man`.`Brand`')
     return results[0].max
 }
 
@@ -25,12 +25,21 @@ const addbrand = async (idBrand, nameBrand, slug, urlImageBrand, order, anHien) 
 }
 //Update Brand 
 const updatebrand = async (idBrand, nameBrand, slug, urlImageBrand, order, anHien) => {
-    let [results, fields] = await connection.query('UPDATE `rice_4_man`.`Brand` SET  `nameBrand` = ?, `slug` = ?, `urlImageBrand` = ?,`order` = ?, `anHien` = ? WHERE `idBrand` = ?;', [nameBrand, slug, urlImageBrand, order, anHien, idBrand])
+
+    let query = 'UPDATE `rice_4_man`.`Brand` SET  `nameBrand` = ?, `slug` = ?,`order` = ?, `anHien` = ? WHERE `idBrand` = ?;';
+    let params = [nameBrand, slug, order, anHien, idBrand];
+
+    if (avatar) {
+        query = 'UPDATE `rice_4_man`.`Brand` SET  `nameBrand` = ?, `slug` = ?, `urlImageBrand` = ?,`order` = ?, `anHien` = ? WHERE `idBrand` = ?;';
+        params = [nameBrand, slug, urlImageBrand, order, anHien, idBrand];
+    }
+    let [results, fields] = await connection.query(query, params);
+    return results;
 }
 
 //Delete Brand
-const deletebrand = async(idBrand) =>{
-    let [results, fields] = await connection.query('DELETE FROM rice_4_man.brand WHERE idBrand = ?;',[idBrand])
+const deletebrand = async (idBrand) => {
+    let [results, fields] = await connection.query('DELETE FROM rice_4_man.brand WHERE idBrand = ?;', [idBrand])
 }
 
 module.exports = {

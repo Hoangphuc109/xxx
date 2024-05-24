@@ -29,8 +29,8 @@ const getproductnb = async () => {
 }
 
 //Get id Product max
-const getidmax = async() => {
-    let [results, fields] = await connection.query( 'SELECT MAX(`idProduct`) as max FROM `rice_4_man`.`product`' )
+const getidmax = async () => {
+    let [results, fields] = await connection.query('SELECT MAX(`idProduct`) as max FROM `rice_4_man`.`product`')
     return results[0].max
 }
 
@@ -43,7 +43,7 @@ const addproduct = async (idProduct, nameProduct, slug, price, urlImage, describ
         'INSERT INTO `rice_4_man`.`product` (`idProduct`, `nameProduct`, `slug`, `price`, `urlImage`, `describe`, `postingDate`, `views`, `purchases`, `anHien`, `noiBat`, `ProductType_idType`, `Brand_idBrand`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
         [idProduct, nameProduct, slug, price, urlImage, describe, postingDate, views, purchases, anHien, noiBat, ProductType_idType, Brand_idBrand],
     );
-    
+
 }
 
 //Delete Product
@@ -53,10 +53,16 @@ const deleteproduct = async (idProduct) => {
 
 //Update Product 
 const updateproduct = async (idProduct, NamePro, slug, price, urlImage, describe, postDate, views, purchase, anHien, noibat, idType2, idBrand2) => {
-    let [results, fields] = await connection.query(
-        'UPDATE `rice_4_man`.`product` SET `nameProduct` = ?,`slug` = ?,`price` = ?, `urlImage` = ?, `describe` = ?, `postingDate` = ?,`views` = ?,`purchases` = ?,`anHien` = ?,`noiBat` = ?,`ProductType_idType` = ?,`Brand_idBrand` = ? WHERE `idProduct` = ?;',
-        [NamePro, slug, price, urlImage, describe, postDate, views, purchase, anHien, noibat, idType2, idBrand2, idProduct],
-    );
+
+    let query = 'UPDATE `rice_4_man`.`product` SET `nameProduct` = ?,`slug` = ?,`price` = ?, `describe` = ?, `postingDate` = ?,`views` = ?,`purchases` = ?,`anHien` = ?,`noiBat` = ?,`ProductType_idType` = ?,`Brand_idBrand` = ? WHERE `idProduct` = ?;';
+    let params = [NamePro, slug, price, describe, postDate, views, purchase, anHien, noibat, idType2, idBrand2, idProduct];
+
+    if (avatar) {
+        query = 'UPDATE `rice_4_man`.`product` SET `nameProduct` = ?,`slug` = ?,`price` = ?, `urlImage` = ?, `describe` = ?, `postingDate` = ?,`views` = ?,`purchases` = ?,`anHien` = ?,`noiBat` = ?,`ProductType_idType` = ?,`Brand_idBrand` = ? WHERE `idProduct` = ?;';
+        params = [NamePro, slug, price, urlImage, describe, postDate, views, purchase, anHien, noibat, idType2, idBrand2, idProduct];
+    }
+    let [results, fields] = await connection.query(query, params);
+    return results;
 }
 
 module.exports = {
