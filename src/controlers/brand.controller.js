@@ -18,7 +18,6 @@ const getBrandId = async (req, res) => {
 }
 
 
-
 //Add Brand
 const addBrand = async (req, res) => {
     try {
